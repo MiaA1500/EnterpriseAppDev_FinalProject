@@ -1,8 +1,7 @@
 package com.soit.enterpriseappdev_finalproject;
 
 import com.soit.enterpriseappdev_finalproject.entity.Student;
-import com.soit.enterpriseappdev_finalproject.service.StudentService;
-import org.springframework.ui.Model;
+import com.soit.enterpriseappdev_finalproject.service.IStudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +9,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentRestController {
-    public StudentService studentService;
+    private final IStudentService studentService;
 
-    public StudentRestController(StudentService theStudentService) {
-        studentService = theStudentService;
+    public StudentRestController(IStudentService theStudentService) {
+        this.studentService = theStudentService;
     }
 
     //endpoints
@@ -29,13 +28,13 @@ public class StudentRestController {
 
     //PAGE - Add Student Page
     @GetMapping("/add")
-    public String add(Model theModel) {
+    public String add() {
         return "add";
     }
 
     //PAGE - Edit Student Page
     @GetMapping("/edit")
-    public String edit(@RequestParam("studentId") int id, Model theModel) {
+    public String edit(@RequestParam("studentId") int id) {
         return "edit";
     }
 
