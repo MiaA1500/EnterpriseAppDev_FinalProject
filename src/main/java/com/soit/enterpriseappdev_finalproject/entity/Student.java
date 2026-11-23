@@ -8,7 +8,6 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "id")
     private int id;
 
@@ -19,14 +18,14 @@ public class Student {
     private String lastName;
 
     @Column(name = "major")
-    private String Major;
+    private String major;
 
     public Student() {}
-    public Student(int id, String firstName, String lastName, String Major) {
+    public Student(int id, String firstName, String lastName, String major) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.Major = Major;
+        this.major = major;
     }
 
     public int getId() {
@@ -54,11 +53,11 @@ public class Student {
     }
 
     public String getMajor() {
-        return Major;
+        return major;
     }
 
     public void setMajor(String major) {
-        Major = major;
+        this.major = major;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class Student {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", Major='" + Major + '\'' +
+                ", major='" + major + '\'' +
                 '}';
     }
 }

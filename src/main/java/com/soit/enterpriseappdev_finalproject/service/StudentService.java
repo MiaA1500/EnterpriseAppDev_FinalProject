@@ -2,18 +2,16 @@ package com.soit.enterpriseappdev_finalproject.service;
 
 import com.soit.enterpriseappdev_finalproject.dao.StudentRepository;
 import com.soit.enterpriseappdev_finalproject.entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class StudentService implements IStudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    @Autowired
     public StudentService(StudentRepository theStudentRepository) {
-        studentRepository = theStudentRepository;
+        this.studentRepository = theStudentRepository;
     }
 
     @Override
