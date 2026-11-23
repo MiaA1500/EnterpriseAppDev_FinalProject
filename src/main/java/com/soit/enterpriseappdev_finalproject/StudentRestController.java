@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentRestController {
-    public StudentService studentService;
+    private final StudentService studentService;
 
     public StudentRestController(StudentService theStudentService) {
         studentService = theStudentService;
