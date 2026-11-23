@@ -17,13 +17,10 @@ public class StudentRestController {
 
     //endpoints
 
-    //PAGE - View Student Directory
+    //View Student Directory - returns the students as JSON
     @GetMapping("/view")
-    public String view() {
-        //Get students from DB
-        List<Student> students = studentService.findAll();
-
-        return students.toString();
+    public List<Student> view() {
+        return studentService.findAll();
     }
 
     //PAGE - Add Student Page
@@ -45,10 +42,10 @@ public class StudentRestController {
         return "create";
     }
 
-    // Delete student record
-    @GetMapping("/delete")
-    public String delete(@RequestParam("studentId") int theId) {
-        studentService.deleteById(theId);
+    // Delete student record (DELETE, not GET, because it modifies data)
+    @DeleteMapping("/delete/{studentId}")
+    public String delete(@PathVariable int studentId) {
+        studentService.deleteById(studentId);
         return "delete";
     }
 
