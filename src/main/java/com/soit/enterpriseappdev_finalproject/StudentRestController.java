@@ -2,7 +2,8 @@ package com.soit.enterpriseappdev_finalproject;
 
 import com.soit.enterpriseappdev_finalproject.entity.Student;
 import com.soit.enterpriseappdev_finalproject.service.StudentService;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,47 +11,34 @@ import java.util.List;
 @RestController
 @RequestMapping("/student")
 public class StudentRestController {
-    public StudentService studentService;
+
+    private final StudentService studentService;
 
     public StudentRestController(StudentService theStudentService) {
         studentService = theStudentService;
     }
 
-    //endpoints
-
-    //PAGE - View Student Directory
+    // READ: list all students, ordered by last name
     @GetMapping("/view")
-    public String view() {
-        //Get students from DB
-        List<Student> students = studentService.findAll();
-
-        return students.toString();
+    public ResponseEntity<List<Student>> view() {
+        return ResponseEntity.ok(studentService.findAll());
     }
 
-    //PAGE - Add Student Page
-    @GetMapping("/add")
-    public String add(Model theModel) {
-        return "add";
-    }
-
-    //PAGE - Edit Student Page
-    @GetMapping("/edit")
-    public String edit(@RequestParam("studentId") int id, Model theModel) {
-        return "edit";
-    }
-
-    //Create/Update student record
+    // CREATE / UPDATE: save a student record
     @PostMapping("/save")
-    public String save(@ModelAttribute("student") Student theStudent) {
+    public ResponseEntity<Student> save(@RequestBody Student theStudent) {
         studentService.save(theStudent);
-        return "create";
+        return ResponseEntity.status(HttpStatus.CREATED).body(theStudent);
     }
 
-    // Delete student record
-    @GetMapping("/delete")
-    public String delete(@RequestParam("studentId") int theId) {
+    // DELETE: remove a student record
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestParam("studentId") int theId) {
+        if (studentService.findById(theId) == null) {
+            return ResponseEntity.notFound().build();
+        }
         studentService.deleteById(theId);
-        return "delete";
+        return ResponseEntity.noContent().build();
     }
 
 }
