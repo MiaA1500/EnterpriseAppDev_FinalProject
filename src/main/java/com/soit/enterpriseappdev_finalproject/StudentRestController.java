@@ -20,11 +20,9 @@ public class StudentRestController {
 
     //PAGE - View Student Directory
     @GetMapping("/view")
-    public String view() {
+    public List<Student> view() {
         //Get students from DB
-        List<Student> students = studentService.findAll();
-
-        return students.toString();
+        return studentService.findAll();
     }
 
     //PAGE - Add Student Page
